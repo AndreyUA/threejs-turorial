@@ -50,8 +50,14 @@ const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(sphere);
 sphere.position.set(-10, 10, 0);
 
-const ambientLight = new THREE.AmbientLight(0x333333);
-scene.add(ambientLight);
+// const ambientLight = new THREE.AmbientLight(0x333333);
+// scene.add(ambientLight);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
+scene.add(directionalLight);
+const directionalLightHelper = new THREE.DirectionalLightHelper(
+  directionalLight
+);
+scene.add(directionalLightHelper);
 
 const gui = new dat.GUI();
 
