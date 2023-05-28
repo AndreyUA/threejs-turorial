@@ -97,7 +97,7 @@ scene.add(sportLightShadowHelper);
 scene.fog = new THREE.FogExp2(0xffffff, 0.01);
 
 // renderer.setClearColor(0xffea00);
-// const textureLoader = new THREE.TextureLoader();
+const textureLoader = new THREE.TextureLoader();
 // scene.background = textureLoader.load(stars);
 const cubeTextureLoader = new THREE.CubeTextureLoader();
 scene.background = cubeTextureLoader.load([
@@ -108,6 +108,14 @@ scene.background = cubeTextureLoader.load([
   stars,
   stars,
 ]);
+
+const box2Geometry = new THREE.BoxGeometry(6, 6, 6);
+const box2Material = new THREE.MeshBasicMaterial({
+  map: textureLoader.load(nebula),
+});
+const box2 = new THREE.Mesh(box2Geometry, box2Material);
+scene.add(box2);
+box2.position.set(0, 15, 10);
 
 const gui = new dat.GUI();
 
