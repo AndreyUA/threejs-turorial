@@ -5,6 +5,8 @@ import * as dat from "dat.gui";
 import nebula from "../img/nebula.jpg";
 import stars from "../img/stars.jpg";
 
+const BOX_FOR_ROTATION = "box_for_rotation";
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
@@ -149,6 +151,17 @@ gui.add(options, "intensity", 0, 1);
 
 let step = 0;
 
+const mousePosition = new THREE.Vector2();
+window.addEventListener("mousemove", (e) => {
+  mousePosition.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mousePosition.y = -(e.clientY / window.innerHeight) * 2 + 1;
+});
+
+const rayCaster = new THREE.Raycaster();
+
+const sphereId = sphere.id;
+box2.name = BOX_FOR_ROTATION;
+
 const animate = (time) => {
   box.rotation.x = time / 1_000;
   box.rotation.y = time / 1_000;
@@ -160,6 +173,22 @@ const animate = (time) => {
   spotLight.penumbra = options.penumbra;
   spotLight.intensity = options.intensity;
   spotLightHelper.update();
+
+  rayCaster.setFromCamera(mousePosition, camera);
+  const intersects = rayCaster.intersectObjects(scene.children);
+
+  if (intersects.length > 0) {
+    intersects.forEach((intersect) => {
+      if (intersect.object.id === sphereId) {
+        intersect.object.material.color.set(0xff0000);
+      }
+
+      if (intersect.object.name === BOX_FOR_ROTATION) {
+        intersect.object.rotation.x = time / 1_000;
+        intersect.object.rotation.y = time / 1_000;
+      }
+    });
+  }
 
   renderer.render(scene, camera);
 };
