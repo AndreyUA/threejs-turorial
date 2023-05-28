@@ -2,6 +2,9 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as dat from "dat.gui";
 
+import nebula from "../img/nebula.jpg";
+import stars from "../img/stars.jpg";
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
@@ -92,6 +95,19 @@ scene.add(sportLightShadowHelper);
 // ! Common fog
 // scene.fog = new THREE.Fog(0xffffff, 0, 200);
 scene.fog = new THREE.FogExp2(0xffffff, 0.01);
+
+// renderer.setClearColor(0xffea00);
+// const textureLoader = new THREE.TextureLoader();
+// scene.background = textureLoader.load(stars);
+const cubeTextureLoader = new THREE.CubeTextureLoader();
+scene.background = cubeTextureLoader.load([
+  nebula,
+  nebula,
+  stars,
+  stars,
+  stars,
+  stars,
+]);
 
 const gui = new dat.GUI();
 
