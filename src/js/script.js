@@ -89,6 +89,10 @@ scene.add(spotLightHelper);
 const sportLightShadowHelper = new THREE.CameraHelper(spotLight.shadow.camera);
 scene.add(sportLightShadowHelper);
 
+// ! Common fog
+// scene.fog = new THREE.Fog(0xffffff, 0, 200);
+scene.fog = new THREE.FogExp2(0xffffff, 0.01);
+
 const gui = new dat.GUI();
 
 const options = {
