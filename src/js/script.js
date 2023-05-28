@@ -54,8 +54,10 @@ sphere.position.set(-10, 10, 0);
 // scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
 scene.add(directionalLight);
+directionalLight.position.set(-30, 50, 0);
 const directionalLightHelper = new THREE.DirectionalLightHelper(
-  directionalLight
+  directionalLight,
+  6
 );
 scene.add(directionalLightHelper);
 
