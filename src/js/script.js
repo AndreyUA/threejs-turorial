@@ -4,6 +4,7 @@ import * as dat from "dat.gui";
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
 
 document.body.appendChild(renderer.domElement);
 
@@ -37,6 +38,7 @@ const planeMaterial = new THREE.MeshStandardMaterial({
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 scene.add(plane);
 plane.rotation.x = -0.5 * Math.PI;
+plane.receiveShadow = true;
 
 const gridHelper = new THREE.GridHelper(30, 100);
 scene.add(gridHelper);
@@ -49,17 +51,26 @@ const sphereMaterial = new THREE.MeshStandardMaterial({
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(sphere);
 sphere.position.set(-10, 10, 0);
+sphere.castShadow = true;
 
 // const ambientLight = new THREE.AmbientLight(0x333333);
 // scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
 scene.add(directionalLight);
 directionalLight.position.set(-30, 50, 0);
+directionalLight.castShadow = true;
+directionalLight.shadow.camera.bottom = -12;
+
 const directionalLightHelper = new THREE.DirectionalLightHelper(
   directionalLight,
   6
 );
 scene.add(directionalLightHelper);
+
+const directionalLightShadowHelper = new THREE.CameraHelper(
+  directionalLight.shadow.camera
+);
+scene.add(directionalLightShadowHelper);
 
 const gui = new dat.GUI();
 
