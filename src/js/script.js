@@ -127,6 +127,20 @@ const box2 = new THREE.Mesh(box2Geometry, box2MultiMaterial);
 scene.add(box2);
 box2.position.set(0, 15, 10);
 
+const plane2Geometry = new THREE.PlaneGeometry(10, 10, 10, 10);
+const plane2Material = new THREE.MeshBasicMaterial({
+  color: 0xffffff,
+  wireframe: true,
+});
+const plane2 = new THREE.Mesh(plane2Geometry, plane2Material);
+scene.add(plane2);
+plane2.position.set(10, 10, 15);
+plane2.geometry.attributes.position.array[0] -= 10 * Math.random();
+plane2.geometry.attributes.position.array[1] -= 10 * Math.random();
+plane2.geometry.attributes.position.array[2] -= 10 * Math.random();
+const lastPointZ = plane2.geometry.attributes.position.array.length - 1;
+plane2.geometry.attributes.position.array[lastPointZ] -= 10 * Math.random();
+
 const gui = new dat.GUI();
 
 const options = {
@@ -189,6 +203,12 @@ const animate = (time) => {
       }
     });
   }
+
+  plane2.geometry.attributes.position.array[0] = 10 * Math.random();
+  plane2.geometry.attributes.position.array[1] = 10 * Math.random();
+  plane2.geometry.attributes.position.array[2] = 10 * Math.random();
+  plane2.geometry.attributes.position.array[lastPointZ] = 10 * Math.random();
+  plane2.geometry.attributes.position.needsUpdate = true;
 
   renderer.render(scene, camera);
 };
