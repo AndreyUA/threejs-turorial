@@ -40,6 +40,14 @@ plane.rotation.x = -0.5 * Math.PI;
 const gridHelper = new THREE.GridHelper(30, 100);
 scene.add(gridHelper);
 
+const sphereGeometry = new THREE.SphereGeometry(4, 60, 60);
+const sphereMaterial = new THREE.MeshBasicMaterial({
+  color: 0x5d3fd3,
+  wireframe: true,
+});
+const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+scene.add(sphere);
+
 const animate = (time) => {
   box.rotation.x = time / 1_000;
   box.rotation.y = time / 1_000;
