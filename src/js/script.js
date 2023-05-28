@@ -14,4 +14,20 @@ const camera = new THREE.PerspectiveCamera(
   1_000
 );
 
-renderer.render(scene, camera);
+const axesHelper = new THREE.AxesHelper(6);
+scene.add(axesHelper);
+
+camera.position.set(0, 2, 5);
+
+const boxGeometry = new THREE.BoxGeometry();
+const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const box = new THREE.Mesh(boxGeometry, material);
+scene.add(box);
+
+const animate = (time) => {
+  box.rotation.x = time / 1_000;
+  box.rotation.y = time / 1_000;
+  renderer.render(scene, camera);
+};
+
+renderer.setAnimationLoop(animate);
